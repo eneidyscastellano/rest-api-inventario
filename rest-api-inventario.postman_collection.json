@@ -1,0 +1,340 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "REST API Inventario",
+    "description": "## REST API Inventario\n\nAPI REST desarrollada con **Node.js + Express** para gestión de autenticación de usuarios en un sistema de inventario.\n\n### Tecnologías\n- **Runtime:** Node.js\n- **Framework:** Express 5\n- **Autenticación:** JWT (jsonwebtoken)\n- **Encriptación:** bcrypt\n- **Almacenamiento:** JSON (archivo local)\n\n### Base URL\n```\nhttp://localhost:3000\n```\n\n### Flujo de uso\n1. Registrar un usuario con `POST /api/registro`\n2. Iniciar sesión con `POST /api/login`\n3. Usar el token JWT retornado para rutas protegidas\n\n### Códigos de respuesta\n| Código | Descripción |\n|--------|-------------|\n| 200 | OK - Operación exitosa |\n| 201 | Created - Recurso creado exitosamente |\n| 400 | Bad Request - Faltan campos requeridos |\n| 401 | Unauthorized - Credenciales incorrectas |\n| 409 | Conflict - El usuario ya existe |\n| 500 | Internal Server Error - Error del servidor |",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "type": "string",
+      "description": "URL base del servidor"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string",
+      "description": "Token JWT obtenido al hacer login (se guarda automáticamente)"
+    }
+  ],
+  "item": [
+    {
+      "name": "Autenticación",
+      "description": "Endpoints para registro e inicio de sesión de usuarios.",
+      "item": [
+        {
+          "name": "Registrar usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"nuevo_usuario\",\n  \"password\": \"contraseña123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/registro",
+              "host": ["{{base_url}}"],
+              "path": ["api", "registro"]
+            },
+            "description": "## Registrar un nuevo usuario\n\nCrea un nuevo usuario en el sistema. La contraseña se encripta automáticamente con **bcrypt** antes de almacenarse.\n\n### Body (JSON)\n| Campo | Tipo | Requerido | Descripción |\n|-------|------|-----------|-------------|\n| username | string | Sí | Nombre de usuario único |\n| password | string | Sí | Contraseña del usuario |\n\n### Respuestas\n\n**201 - Registro exitoso:**\n```json\n{\n  \"exito\": true,\n  \"mensaje\": \"Registro exitoso\"\n}\n```\n\n**400 - Campos faltantes:**\n```json\n{\n  \"exito\": false,\n  \"mensaje\": \"El usuario y la contraseña son obligatorios\"\n}\n```\n\n**409 - Usuario ya existe:**\n```json\n{\n  \"exito\": false,\n  \"mensaje\": \"El usuario ya se encuentra registrado\"\n}\n```\n\n**500 - Error del servidor:**\n```json\n{\n  \"exito\": false,\n  \"mensaje\": \"Error interno del servidor\"\n}\n```"
+          },
+          "response": [
+            {
+              "name": "201 - Registro exitoso",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"nuevo_usuario\",\n  \"password\": \"contraseña123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/registro",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "registro"]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exito\": true,\n  \"mensaje\": \"Registro exitoso\"\n}"
+            },
+            {
+              "name": "400 - Campos faltantes",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"nuevo_usuario\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/registro",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "registro"]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exito\": false,\n  \"mensaje\": \"El usuario y la contraseña son obligatorios\"\n}"
+            },
+            {
+              "name": "409 - Usuario ya existe",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/registro",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "registro"]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exito\": false,\n  \"mensaje\": \"El usuario ya se encuentra registrado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Iniciar sesión",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const data = pm.response.json();",
+                  "if (data.exito && data.token) {",
+                  "    pm.collectionVariables.set('token', data.token);",
+                  "    console.log('Token guardado:', data.token);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/login",
+              "host": ["{{base_url}}"],
+              "path": ["api", "login"]
+            },
+            "description": "## Iniciar sesión\n\nVerifica las credenciales del usuario y retorna un **token JWT** válido por 1 hora.\n\nEl script de test guarda el token automáticamente en la variable `{{token}}` de la colección para usarse en otras peticiones.\n\n### Body (JSON)\n| Campo | Tipo | Requerido | Descripción |\n|-------|------|-----------|-------------|\n| username | string | Sí | Nombre de usuario registrado |\n| password | string | Sí | Contraseña del usuario |\n\n### Respuestas\n\n**200 - Autenticación exitosa:**\n```json\n{\n  \"exito\": true,\n  \"mensaje\": \"Autenticación satisfactoria\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n}\n```\n\n> El token tiene una expiración de **1 hora**. Pasado ese tiempo deberás volver a hacer login.\n\n**400 - Campos faltantes:**\n```json\n{\n  \"exito\": false,\n  \"mensaje\": \"El usuario y la contraseña son obligatorios\"\n}\n```\n\n**401 - Credenciales incorrectas:**\n```json\n{\n  \"exito\": false,\n  \"mensaje\": \"Error en la autenticación\"\n}\n```\n\n**500 - Error del servidor:**\n```json\n{\n  \"exito\": false,\n  \"mensaje\": \"Error interno del servidor\"\n}\n```"
+          },
+          "response": [
+            {
+              "name": "200 - Login exitoso",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "login"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exito\": true,\n  \"mensaje\": \"Autenticación satisfactoria\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTc3NTY2NDMzMDM4NSwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTcxMjU4MDAwMCwiZXhwIjoxNzEyNTgzNjAwfQ.ejemplo_token\"\n}"
+            },
+            {
+              "name": "401 - Credenciales incorrectas",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"incorrecta\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "login"]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"exito\": false,\n  \"mensaje\": \"Error en la autenticación\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Páginas Web",
+      "description": "Rutas que sirven las páginas HTML de la aplicación.",
+      "item": [
+        {
+          "name": "Página de Login",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/login",
+              "host": ["{{base_url}}"],
+              "path": ["login"]
+            },
+            "description": "## Página de inicio de sesión\n\nRetorna el HTML de la página de login. Desde esta vista el usuario puede ingresar sus credenciales.\n\n- Enlaza con el script `/public/login.js`\n- Al autenticarse correctamente, redirige a `/admin`\n- Incluye enlace a la página de registro"
+          },
+          "response": []
+        },
+        {
+          "name": "Página de Registro",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/register",
+              "host": ["{{base_url}}"],
+              "path": ["register"]
+            },
+            "description": "## Página de registro\n\nRetorna el HTML de la página de registro de nuevos usuarios.\n\n- Enlaza con el script `/public/register.js`\n- Al registrarse correctamente, redirige a `/login`\n- Incluye enlace de vuelta al login"
+          },
+          "response": []
+        },
+        {
+          "name": "Panel de Administración",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin",
+              "host": ["{{base_url}}"],
+              "path": ["admin"]
+            },
+            "description": "## Panel de administración\n\nRetorna el HTML del panel de administración.\n\n> Esta ruta no valida el token en el servidor actualmente. La protección se maneja en el cliente verificando si existe el token en `localStorage`."
+          },
+          "response": []
+        },
+        {
+          "name": "Raíz (redirige a Login)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            },
+            "description": "## Ruta raíz\n\nRedirige automáticamente a `/login` con un `302 Found`."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
