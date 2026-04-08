@@ -1,0 +1,176 @@
+/* ============================================================
+   style.css - Estilos globales del sistema de inventario
+   Aplica a las páginas de login, registro y administración
+   ============================================================ */
+
+/* Reset básico y configuración global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Contenedor principal centrado */
+.container {
+    width: 100%;
+    max-width: 420px;
+    padding: 1rem;
+}
+
+/* Tarjeta con sombra para los formularios */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Título principal */
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.3rem;
+    text-align: center;
+}
+
+/* Subtítulo descriptivo */
+.subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+/* Grupo de campo del formulario */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 0.4rem;
+}
+
+/* Campos de entrada de texto */
+.form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #4361ee;
+}
+
+/* Botones generales */
+.btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 0.5rem;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+/* Botón primario (acción principal) */
+.btn-primary {
+    background-color: #4361ee;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #3451d1;
+}
+
+/* Botón de peligro (cerrar sesión) */
+.btn-danger {
+    background-color: #e63946;
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background-color: #c1121f;
+}
+
+/* Mensajes de respuesta del servidor */
+.mensaje {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Mensaje oculto por defecto */
+.hidden {
+    display: none;
+}
+
+/* Mensaje de éxito */
+.exito {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Mensaje de error */
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Enlace de navegación entre páginas */
+.link-text {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.link-text a {
+    color: #4361ee;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-text a:hover {
+    text-decoration: underline;
+}
+
+/* Texto de bienvenida en el panel admin */
+.bienvenida {
+    font-size: 1.1rem;
+    color: #444;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #f0f4ff;
+    border-radius: 8px;
+}
